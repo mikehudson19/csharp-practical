@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using CSharp.Domain;
+using System.Text.RegularExpressions;
+
 
 namespace CSharp.App
 {
@@ -8,22 +10,19 @@ namespace CSharp.App
     {
         static void Main(string[] args)
         {
-            List<Invoice> InvoiceList = new List<Invoice>() { new Invoice("A001", 2, 0 ),
-                                                              new Invoice("A002", 1, 1),
-                                                              new Invoice("A003", 3, 2),
-                                                              new Invoice("A004", 3, 3),
-                                                              new Invoice("A003", 3, 4),
-                                                              new Invoice("A003", 3, 5),
-                                                              new Invoice("A003", 3, 6),
-                                                              new Invoice("A003", 3, 7),
-                                                              new Invoice("A003", 3, 8),
-                                                              new Invoice("A003", 3, 9),
-                                                              new Invoice("A003", 3, 10),
-                                                              new Invoice("A003", 3, 11),
-            };
+           List<Invoice> invoices = InvoiceGenerator.GenerateInvoices();
 
-            
-            Console.WriteLine("App is running....press any key to exit");
+            foreach (var i in invoices)
+            {
+                Console.WriteLine(i.ToString());
+            }
+
+            string myString = "INV1561";
+            string pattern = @"^[I][N][V][0-9]{4}$";
+            Regex regex = new Regex(pattern);
+            Console.WriteLine(regex.IsMatch(myString));
+
+
             Console.ReadLine();
         }
     }
