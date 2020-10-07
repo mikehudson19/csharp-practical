@@ -24,12 +24,18 @@ namespace CSharp.Domain
             ItemRate = itemRate;
             Hours = hours;
             Description = description;
-            Total = Hours * ItemRate;
+            Total = CalculateItemTotal();
 
         }
         #endregion
 
         #region Methods
+
+        public double CalculateItemTotal()
+        {
+            return ItemRate * Hours;
+        }
+
         public override string ToString()
         {
             return Description;
