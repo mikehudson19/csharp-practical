@@ -4,14 +4,16 @@ namespace CSharp.Domain
 {
     public class InvoiceItem
     {
-        internal string ItemName { get; set; }
-        internal double ItemRate { get; set; }
-        internal double Hours { get; set; }
-        internal string Description { get; set; }
-        internal double Total { get; set; }
 
+        #region Fields & Properties
+        public string ItemName { get; set; }
+        public double ItemRate { get; set; }
+        public double Hours { get; set; }
+        public string Description { get; set; }
+        public double Total { get; set; }
+        #endregion
 
-
+        #region Constructors
         public InvoiceItem()
         {
         }
@@ -25,10 +27,13 @@ namespace CSharp.Domain
             Total = Hours * ItemRate;
 
         }
+        #endregion
 
+        #region Methods
         public override string ToString()
         {
             return Description;
         }
+        #endregion
     }
 }
