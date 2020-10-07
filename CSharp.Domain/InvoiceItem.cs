@@ -7,10 +7,10 @@ namespace CSharp.Domain
 
         #region Fields & Properties
         public string ItemName { get; set; }
-        public double ItemRate { get; set; }
-        public double Hours { get; set; }
+        public decimal ItemRate { get; set; }
+        public decimal Hours { get; set; }
         public string Description { get; set; }
-        public double Total { get; set; }
+        public decimal Total { get; set; }
         #endregion
 
         #region Constructors
@@ -18,7 +18,7 @@ namespace CSharp.Domain
         {
         }
 
-        public InvoiceItem(string itemName, double itemRate, double hours, string description) : this()
+        public InvoiceItem(string itemName, decimal itemRate, decimal hours, string description) : this()
         {
             ItemName = itemName;
             ItemRate = itemRate;
@@ -30,8 +30,7 @@ namespace CSharp.Domain
         #endregion
 
         #region Methods
-
-        public double CalculateItemTotal()
+        public decimal CalculateItemTotal()
         {
             return ItemRate * Hours;
         }

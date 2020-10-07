@@ -6,7 +6,7 @@ using System;
 namespace Tests
 {
     [TestClass]
-    public class UnitTest1
+    public class InvoiceTests
     {
 
         [TestMethod]
@@ -35,10 +35,9 @@ namespace Tests
             // Arrange
             var invoice = new Invoice();
             var expected = new List<InvoiceItem>()
-            {
-                { new InvoiceItem("Development", 800, 5, "Software development") },
-                { new InvoiceItem("Design", 600, 6, "Software design") },
-                { new InvoiceItem("Digital Marketing", 550, 12, "Devising the marketing strategy") }
+            { { new InvoiceItem("Development", 800, 12, "Developing the backend of the system") },
+              { new InvoiceItem("Design", 600, 6, "Implementing client reverts to the front-end design") },
+              { new InvoiceItem("Digital Marketing", 550, 12, "Developing the marketing strategy") }
             };
 
             // Act
