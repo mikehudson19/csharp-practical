@@ -10,10 +10,14 @@ namespace CSharp.App
         {
            List<Invoice> invoices = InvoiceGenerator.GenerateInvoices();
 
-            foreach (var i in invoices)
-            {
-                Console.WriteLine(i.ToString());
-            }
+            //foreach (var i in invoices)
+            //{
+            //    Console.WriteLine(i.ToString());
+            //}
+
+            Invoice invoice = InvoiceGenerator.GenerateInvoice();
+
+            Console.WriteLine(invoice.ToString());
 
             Console.ReadLine();
         }

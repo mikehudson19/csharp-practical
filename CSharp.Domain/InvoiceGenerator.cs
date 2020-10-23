@@ -24,5 +24,10 @@ namespace CSharp.Domain
             };
 
         }
+
+        public static Invoice GenerateInvoice()
+        {
+            return new Invoice("INV0015", 3, 0);
+        }
     }
 }

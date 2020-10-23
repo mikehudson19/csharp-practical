@@ -24,6 +24,7 @@ namespace FullStack.Data
             _ctx = ctx;
         }
 
+        #region User CRUD Methods
         public List<User> GetUsers()
         {
             throw new NotImplementedException();
@@ -66,7 +67,51 @@ namespace FullStack.Data
             //_ctx.Users.Remove(entity); //CAREFULL!! here when you copy and paste, change _ctx.Users to the new DBSet
             //_ctx.SaveChanges();
         }
+        #endregion
 
-        
+        //#region Invoice CRUD methods
+        //public List<Invoice> GetInvoices()
+        //{
+        //    throw new NotImplementedException();
+        //    //return _ctx.Users.ToList();
+        //}
+
+        //public Invoice GetInvoice(int invNo)
+        //{
+        //    throw new NotImplementedException();
+        //    //return _ctx.Users.Find(id);
+        //}
+
+        //public Invoice CreateInvoice(Invoice invoice)
+        //{
+        //    throw new NotImplementedException();
+
+        //    //_ctx.Invoices.Add(e);
+        //    //_ctx.SaveChanges();
+        //    //return e;
+        //}
+
+        //public Invoice UpdateInvoice(Invoice invoice)
+        //{
+        //    throw new NotImplementedException();
+
+        //    //var existing = _ctx.Users.SingleOrDefault(em => em.Id == e.Id);
+        //    //if (existing == null) return null;
+
+        //    //_ctx.Entry(existing).State = EntityState.Detached;
+        //    //_ctx.Users.Attach(e);
+        //    //_ctx.Entry(e).State = EntityState.Modified;
+        //    //_ctx.SaveChanges();
+        //}
+
+        //public void DeleteInvoice(int invNo)
+        //{
+        //    throw new NotImplementedException();
+
+        //    //var entity = _ctx.Users.Find(noteId);
+        //    //_ctx.Users.Remove(entity); //CAREFULL!! here when you copy and paste, change _ctx.Users to the new DBSet
+        //    //_ctx.SaveChanges();
+        //}
+        //#endregion
     }
 }

@@ -11,6 +11,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using FullStack.Data;
+using Microsoft.EntityFrameworkCore;
 
 namespace FullStack.API
 {
@@ -34,9 +35,10 @@ namespace FullStack.API
 
             //TODO: Add the DbContext and repositoy
 
-            //services.AddDbContext<FullStackDbContext>(options => options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
-            //services.AddScoped<IFullStackRepository, FullStackRepository>();
-            
+            services.AddDbContext<FullStackDbContext>(options => options.UseSqlite("Data Source=InvoiceDatabase.db"));
+            services.AddScoped<IFullStackRepository, FullStackRepository>();
+            services.AddScoped<FullStackDbContext>();
+
 
             // configure DI for application services
             services.AddScoped<IUserService, UserService>();

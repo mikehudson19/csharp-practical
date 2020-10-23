@@ -8,10 +8,10 @@ namespace CSharp.Domain
     public class Invoice
     {
         #region Fields & Properties
-        internal string InvoiceNumber { get; set; }
-        internal DateTimeOffset InvoiceDate { get; set; }
-        internal DateTimeOffset DueDate { get; set; }
-        internal decimal InvoiceTotal { get; set; }
+        public string InvoiceNumber { get; set; }
+        public DateTimeOffset InvoiceDate { get; set; }
+        public DateTimeOffset DueDate { get; set; }
+        public decimal InvoiceTotal { get; set; }
         public List<InvoiceItem> InvoiceItems = new List<InvoiceItem>();
         #endregion
 
