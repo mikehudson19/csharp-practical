@@ -15,10 +15,9 @@ namespace FullStack.Data
         public FullStackDbContext(DbContextOptions<FullStackDbContext> options) : base(options)
         {
             Database.EnsureCreated();
-            addInvoice();
         }
 
-        public void addInvoice()
+        public void addInvoice() // For test purposes to check that I can persist to the DB.
         {
             var invoice = InvoiceGenerator.GenerateInvoice();
 
@@ -35,18 +34,11 @@ namespace FullStack.Data
                 InvoiceDate = invoice.InvoiceDate,
                 DueDate = invoice.DueDate,
                 InvoiceTotal = invoice.InvoiceTotal,
-                InvoiceItems = new List<DataInvoiceItem>()
-                {
-                    new DataInvoiceItem() { ItemName = "The Newer item", Description = "The newer description", Hours = 3, ItemRate = 300, Total = 300 }
-                }
+                InvoiceItems = invoiceItems
             };
 
             Invoices.Add(dbInvoice);
             this.SaveChanges();
-            Console.WriteLine("Succesfully saved to database");
         }
-
-
-
     }
 }
