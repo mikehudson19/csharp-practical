@@ -4,14 +4,30 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace FullStack.API.Controllers
 {
+    [Route("api/[controller]")]
     [ApiController]
     public class InvoicesController : ControllerBase
     {
-        private readonly FullStackDbContext _context; 
+        private readonly IFullStackRepository _repo; 
 
-        public InvoicesController(FullStackDbContext context)
+        public InvoicesController(IFullStackRepository repo)
         {
-            _context = context;
+            _repo = repo;
+        }
+
+        [HttpGet]
+        public IActionResult GetInvoices()
+        {
+            var invoices = _repo.GetInvoices();
+            return Ok(invoices);
+        }
+
+        [HttpGet]
+        [Route("{id}")]
+        public IActionResult GetInvoice(int id)
+        {
+            var invoice = _repo.GetInvoice(id);
+            return Ok(invoice);
         }
     }
 }

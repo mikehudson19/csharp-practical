@@ -28,7 +28,6 @@ namespace FullStack.API
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddCors();
-            services.AddControllers();
 
             // configure strongly typed settings object
             services.Configure<AppSettings>(Configuration.GetSection("AppSettings"));
@@ -42,6 +41,14 @@ namespace FullStack.API
 
             // configure DI for application services
             services.AddScoped<IUserService, UserService>();
+
+            services.AddControllers();
+
+            services.AddControllersWithViews()
+                .AddNewtonsoftJson(options =>
+                options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore
+                );
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
