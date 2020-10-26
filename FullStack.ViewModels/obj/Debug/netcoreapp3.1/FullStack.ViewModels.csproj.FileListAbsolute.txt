@@ -7,3 +7,8 @@
 /Users/admin/Documents/Personal/Web Development/BitCube Internship/C#/csharp-starter/FullStack.ViewModels/obj/Debug/netcoreapp3.1/FullStack.ViewModels.csproj.CoreCompileInputs.cache
 /Users/admin/Documents/Personal/Web Development/BitCube Internship/C#/csharp-starter/FullStack.ViewModels/obj/Debug/netcoreapp3.1/FullStack.ViewModels.dll
 /Users/admin/Documents/Personal/Web Development/BitCube Internship/C#/csharp-starter/FullStack.ViewModels/obj/Debug/netcoreapp3.1/FullStack.ViewModels.pdb
+/Users/admin/Documents/Personal/Web Development/BitCube Internship/C#/csharp-starter/FullStack.ViewModels/bin/Debug/netcoreapp3.1/CSharp.Domain.dll
+/Users/admin/Documents/Personal/Web Development/BitCube Internship/C#/csharp-starter/FullStack.ViewModels/bin/Debug/netcoreapp3.1/FullStack.Data.dll
+/Users/admin/Documents/Personal/Web Development/BitCube Internship/C#/csharp-starter/FullStack.ViewModels/bin/Debug/netcoreapp3.1/FullStack.Data.pdb
+/Users/admin/Documents/Personal/Web Development/BitCube Internship/C#/csharp-starter/FullStack.ViewModels/bin/Debug/netcoreapp3.1/CSharp.Domain.pdb
+/Users/admin/Documents/Personal/Web Development/BitCube Internship/C#/csharp-starter/FullStack.ViewModels/obj/Debug/netcoreapp3.1/FullStack.ViewModels.csproj.CopyComplete

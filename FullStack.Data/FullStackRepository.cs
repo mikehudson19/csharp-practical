@@ -88,6 +88,7 @@ namespace FullStack.Data
         public List<DataInvoice> GetInvoices()
         {
             //throw new NotImplementedException();
+            var invoicesWithItems = _ctx.Invoices.Include(i => i.InvoiceItems).ToList();
             return _ctx.Invoices.ToList();
         }
 

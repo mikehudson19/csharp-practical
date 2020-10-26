@@ -1282,6 +1282,9 @@
         }
       },
       "FullStack.ViewModels/1.0.0": {
+        "dependencies": {
+          "FullStack.Data": "1.0.0"
+        },
         "runtime": {
           "FullStack.ViewModels.dll": {}
         },

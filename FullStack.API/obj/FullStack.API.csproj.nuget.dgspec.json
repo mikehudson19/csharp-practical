@@ -263,7 +263,11 @@
         },
         "frameworks": {
           "netcoreapp3.1": {
-            "projectReferences": {}
+            "projectReferences": {
+              "/Users/admin/Documents/Personal/Web Development/BitCube Internship/C#/csharp-starter/FullStack.Data/FullStack.Data.csproj": {
+                "projectPath": "/Users/admin/Documents/Personal/Web Development/BitCube Internship/C#/csharp-starter/FullStack.Data/FullStack.Data.csproj"
+              }
+            }
           }
         },
         "warningProperties": {

@@ -25,9 +25,10 @@ namespace CSharp.Domain
 
         }
 
-        public static Invoice GenerateInvoice()
+        public static Invoice GenerateInvoice(string invNo, int invoiceItems, int monthOffset)
         {
-            return new Invoice("INV0020", 2, 4);
+            return new Invoice(invNo, invoiceItems, monthOffset);
         }
     }
 }
+    
