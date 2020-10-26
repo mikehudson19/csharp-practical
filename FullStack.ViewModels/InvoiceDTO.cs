@@ -6,7 +6,7 @@ namespace FullStack.ViewModels
 {
     public class InvoiceDTO
     {
-        
+        public int Id { get; set; }
         public string InvoiceNumber { get; set; }
         public DateTimeOffset InvoiceDate { get; set; }
         public DateTimeOffset DueDate { get; set; }

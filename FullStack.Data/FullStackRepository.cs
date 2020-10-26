@@ -26,11 +26,8 @@ namespace FullStack.Data
         DataInvoiceItem CreateInvoiceItem(DataInvoiceItem user);
         DataInvoiceItem UpdateInvoiceItem(DataInvoiceItem user);
         void DeleteInvoiceItem(int id);
-
-
-        //Do the same for all the other entities, Invoices, Invoice Items, etc
-
     }
+
     public class FullStackRepository: IFullStackRepository
     {
         private FullStackDbContext _ctx;
@@ -87,22 +84,18 @@ namespace FullStack.Data
         #region Invoice CRUD methods
         public List<DataInvoice> GetInvoices()
         {
-            //throw new NotImplementedException();
             var invoicesWithItems = _ctx.Invoices.Include(i => i.InvoiceItems).ToList();
             return _ctx.Invoices.ToList();
         }
 
         public DataInvoice GetInvoice(int id)
         {
-            //throw new NotImplementedException();
             var invoiceWithItems = _ctx.Invoices.Include(i => i.InvoiceItems).ToList();
             return _ctx.Invoices.Find(id);
         }
 
         public DataInvoice CreateInvoice(DataInvoice invoice)
         {
-            //throw new NotImplementedException();
-
             _ctx.Invoices.Add(invoice);
             _ctx.SaveChanges();
             return invoice;
@@ -110,7 +103,6 @@ namespace FullStack.Data
 
         public DataInvoice UpdateInvoice(DataInvoice invoice)
         {
-            //throw new NotImplementedException();
 
             var existing = _ctx.Invoices.SingleOrDefault(em => em.Id == invoice.Id);
             if (existing == null) return null;
@@ -124,8 +116,6 @@ namespace FullStack.Data
 
         public void DeleteInvoice(int id)
         {
-            //throw new NotImplementedException();
-
             var entity = _ctx.Invoices.Find(id);
             _ctx.Invoices.Remove(entity); //CAREFULL!! here when you copy and paste, change _ctx.Users to the new DBSet
             _ctx.SaveChanges();
