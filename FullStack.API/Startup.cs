@@ -37,6 +37,7 @@ namespace FullStack.API
             services.AddDbContext<FullStackDbContext>(options => options.UseSqlite("Data Source=InvoiceDatabase.db"));
             services.AddScoped<IFullStackRepository, FullStackRepository>();
             services.AddScoped<FullStackDbContext>();
+            services.AddTransient<InvoiceService>();
 
 
             // configure DI for application services

@@ -13,17 +13,17 @@ namespace Tests
         public void CalculateInvoiceTotalTest()
         {
             // Arrange
-            var invoice = new Invoice();
-            invoice.InvoiceItems = new List<InvoiceItem>()
+            var invoice = new InvoiceEntity();
+            invoice.InvoiceItems = new List<InvoiceItemEntity>()
             {
-                { new InvoiceItem("Development", 800, 10, "Software development") },
-                { new InvoiceItem("Design", 600, 10, "Software design") },
-                { new InvoiceItem("Digital Marketing", 400, 10, "Devising the marketing strategy") }
+                { new InvoiceItemEntity("Development", 800, 10, "Software development") },
+                { new InvoiceItemEntity("Design", 600, 10, "Software design") },
+                { new InvoiceItemEntity("Digital Marketing", 400, 10, "Devising the marketing strategy") }
             };
             var expected = 18000;
 
             // Act
-            var actual = invoice.CalculateInvoiceTotal();
+            var actual = invoice.InvoiceTotal;
 
             // Assert
             Assert.AreEqual(expected, actual);
@@ -33,11 +33,11 @@ namespace Tests
         public void GenerateInvoiceItemsTest()
         {
             // Arrange
-            var invoice = new Invoice();
-            var expected = new List<InvoiceItem>()
-            { { new InvoiceItem("Development", 800, 12, "Developing the backend of the system") },
-              { new InvoiceItem("Design", 600, 6, "Implementing client reverts to the front-end design") },
-              { new InvoiceItem("Digital Marketing", 550, 12, "Developing the marketing strategy") }
+            var invoice = new InvoiceEntity();
+            var expected = new List<InvoiceItemEntity>()
+            { { new InvoiceItemEntity("Development", 800, 12, "Developing the backend of the system") },
+              { new InvoiceItemEntity("Design", 600, 6, "Implementing client reverts to the front-end design") },
+              { new InvoiceItemEntity("Digital Marketing", 550, 12, "Developing the marketing strategy") }
             };
 
             // Act
@@ -58,7 +58,7 @@ namespace Tests
         public void GetInvoiceDate_NewYearTest()
         {
             // Arrange
-            var invoice = new Invoice();
+            var invoice = new InvoiceEntity();
             var month = DateTime.UtcNow.Month;
             var year = DateTime.UtcNow.Year;
             var day = DateTime.DaysInMonth(year, month) - 5;
@@ -75,7 +75,7 @@ namespace Tests
         public void GetInvoiceDate_SameYearTest()
         {
             // Arrange
-            var invoice = new Invoice();
+            var invoice = new InvoiceEntity();
             var month = DateTime.UtcNow.Month;
             var year = DateTime.UtcNow.AddYears(1).Year;
             var day = DateTime.DaysInMonth(year, month) - 5;
@@ -93,7 +93,7 @@ namespace Tests
         public void GetDueDateTest()
         {
             // Arrange
-            var invoice = new Invoice();
+            var invoice = new InvoiceEntity();
             var expected = new DateTime(2020, 11, 30, 0, 0, 0);
 
             // Act

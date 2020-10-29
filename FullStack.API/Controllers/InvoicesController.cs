@@ -5,6 +5,8 @@ using FullStack.ViewModels;
 using System.Collections.Generic;
 using CSharp.Domain;
 using FullStack.Data;
+using System.Linq;
+using FullStack.API.Services;
 
 namespace FullStack.API.Controllers
 {
@@ -13,49 +15,19 @@ namespace FullStack.API.Controllers
     public class InvoicesController : ControllerBase
     {
         private readonly IFullStackRepository _repo;
+        private readonly InvoiceService _invoiceService;
 
-        public InvoicesController(IFullStackRepository repo)
+        public InvoicesController(IFullStackRepository repo, InvoiceService invoiceService)
         {
-            _repo = repo;
+            this._repo = repo;
+            this._invoiceService = invoiceService;
         }
 
         [HttpGet]
         public IActionResult GetInvoices()
         {
-            // Get invoices from repo
-            var invoices = _repo.GetInvoices();
-
-            var invoicesToReturn = new List<InvoiceDTO>();
-
-            foreach (var invoice in invoices)
-            {
-                // Map invoice items to DTO
-                var invoiceItems = new List<InvoiceItemDTO>();
-
-                foreach (var item in invoice.InvoiceItems)
-                {
-                    invoiceItems.Add(new InvoiceItemDTO()
-                    {
-                        ItemName = item.ItemName,
-                        ItemRate = item.ItemRate,
-                        Description = item.Description,
-                        Hours = item.Hours,
-                        Total = item.Total
-                    });
-                }
-
-                // Map invoice to DTO
-                invoicesToReturn.Add(new InvoiceDTO()
-                {
-                    Id = invoice.Id,
-                    InvoiceNumber = invoice.InvoiceNumber,
-                    InvoiceDate = invoice.InvoiceDate,
-                    DueDate = invoice.DueDate,
-                    InvoiceItems = invoiceItems,
-                    InvoiceTotal = invoice.InvoiceTotal
-                });
-            }
-            return Ok(invoicesToReturn);
+            var invoices = _invoiceService.GetInvoices();
+            return Ok(invoices);
         }
 
 
@@ -63,38 +35,14 @@ namespace FullStack.API.Controllers
         [Route("{id}", Name = "GetInvoice")]
         public IActionResult GetInvoice(int id)
         {
-            var invoice = _repo.GetInvoice(id);
+            var invoice = _invoiceService.GetInvoice(id);
 
             if (invoice == null)
             {
                 return NotFound();
             }
 
-            var invoiceItems = new List<InvoiceItemDTO>();
-
-            foreach (var item in invoice.InvoiceItems)
-            {
-                invoiceItems.Add(new InvoiceItemDTO()
-                {
-                    ItemName = item.ItemName,
-                    ItemRate = item.ItemRate,
-                    Description = item.Description,
-                    Hours = item.Hours,
-                    Total = item.Total
-                });
-            }
-
-            var invoiceToReturn = new InvoiceDTO()
-            {
-                Id = invoice.Id,
-                InvoiceNumber = invoice.InvoiceNumber,
-                InvoiceDate = invoice.InvoiceDate,
-                DueDate = invoice.DueDate,
-                InvoiceItems = invoiceItems,
-                InvoiceTotal = invoice.InvoiceTotal
-            };
-
-            return Ok(invoiceToReturn);
+            return Ok(invoice);
         }
 
 
@@ -103,74 +51,44 @@ namespace FullStack.API.Controllers
         {
             var newInvoice = InvoiceGenerator.GenerateInvoice("INV040", 3, 3);
 
-            // Map invoice items to data object
-            var invoiceItems = new List<DataInvoiceItem>();
+            var mappedInvoice = _invoiceService.MapForCreation(newInvoice);
 
-            foreach (var item in newInvoice.InvoiceItems)
-            {
-                invoiceItems.Add(new DataInvoiceItem() { ItemName = item.ItemName, Description = item.Description, Hours = item.Hours, ItemRate = item.ItemRate, Total = item.Total });
-            }
+            var createdInvoice = _invoiceService.CreateInvoice(mappedInvoice);
 
-            // Map new invoice the invoice data object
-            var invoiceEntity = new DataInvoice()
-            {
-                InvoiceNumber = newInvoice.InvoiceNumber,
-                InvoiceDate = newInvoice.InvoiceDate,
-                InvoiceTotal = newInvoice.InvoiceTotal,
-                InvoiceItems = invoiceItems,
-                DueDate = newInvoice.DueDate
-            };
-
-            // Save new invoice via repository
-            var createdItem = _repo.CreateInvoice(invoiceEntity);
-
-            // Map invoice saved to DB to a DTO
-            var invoiceItemsToReturn = new List<InvoiceItemDTO>();
-
-            foreach (var item in newInvoice.InvoiceItems)
-            {
-                invoiceItemsToReturn.Add(new InvoiceItemDTO() { ItemName = item.ItemName, Description = item.Description, Hours = item.Hours, ItemRate = item.ItemRate, Total = item.Total });
-            }
-
-            var invoiceToReturn = new InvoiceDTO()
-            {
-                Id = invoiceEntity.Id,
-                InvoiceNumber = invoiceEntity.InvoiceNumber,
-                InvoiceDate = invoiceEntity.InvoiceDate,
-                InvoiceItems = invoiceItemsToReturn,
-                DueDate = invoiceEntity.DueDate,
-                InvoiceTotal = invoiceEntity.InvoiceTotal
-            };
+            var invoiceToReturn = _invoiceService.MapInvoice(mappedInvoice);
 
             return CreatedAtRoute("GetInvoice",
-                                  new { id = createdItem.Id },
+                                  new
+                                  {
+                                      id = createdInvoice.Id
+                                  },
                                   invoiceToReturn);
         }
 
 
         [HttpPut("{id}")]
-        public ActionResult UpdateInvoice(int id, DataInvoice invoice)
+        public ActionResult UpdateInvoice(int id, InvoiceDTO invoice)
         {
-            var invoiceEntity = _repo.GetInvoice(id);
+            var invoiceFromDb = _invoiceService.GetInvoice(id); 
 
-            if (invoiceEntity == null)
+            if (invoiceFromDb == null)
             {
                 return NotFound();
             }
 
-            invoiceEntity.InvoiceNumber = invoice.InvoiceNumber;
-            invoiceEntity.InvoiceTotal = invoice.InvoiceTotal;
+            invoiceFromDb.InvoiceNumber = invoice.InvoiceNumber;
 
-            _repo.UpdateInvoice(invoiceEntity);
+            _invoiceService.UpdateInvoice(invoiceFromDb);
+
             return NoContent();
         }
 
-
+            
         [HttpDelete]
         [Route("{id}")]
         public ActionResult DeleteInvoice(int id)
         {
-            _repo.DeleteInvoice(id);
+            _invoiceService.DeleteInvoice(id);
 
             return NoContent();
         }

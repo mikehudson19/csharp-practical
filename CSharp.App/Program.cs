@@ -8,16 +8,16 @@ namespace CSharp.App
     {
         static void Main(string[] args)
         {
-           List<Invoice> invoices = InvoiceGenerator.GenerateInvoices();
+           //List<InvoiceEntity> invoices = InvoiceGenerator.GenerateInvoices();
 
             //foreach (var i in invoices)
             //{
             //    Console.WriteLine(i.ToString());
             //}
 
-            Invoice invoice = InvoiceGenerator.GenerateInvoice();
+            //InvoiceEntity invoice = InvoiceGenerator.GenerateInvoice();
 
-            Console.WriteLine(invoice.ToString());
+            //Console.WriteLine(invoice.ToString());
 
             Console.ReadLine();
         }

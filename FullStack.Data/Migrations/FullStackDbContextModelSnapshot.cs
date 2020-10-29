@@ -16,7 +16,7 @@ namespace FullStack.Data.Migrations
             modelBuilder
                 .HasAnnotation("ProductVersion", "3.1.9");
 
-            modelBuilder.Entity("FullStack.Data.Entities.DataInvoice", b =>
+            modelBuilder.Entity("FullStack.Data.Entities.Invoice", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -31,21 +31,15 @@ namespace FullStack.Data.Migrations
                     b.Property<string>("InvoiceNumber")
                         .HasColumnType("TEXT");
 
-                    b.Property<decimal>("InvoiceTotal")
-                        .HasColumnType("TEXT");
-
                     b.HasKey("Id");
 
                     b.ToTable("Invoices");
                 });
 
-            modelBuilder.Entity("FullStack.Data.Entities.DataInvoiceItem", b =>
+            modelBuilder.Entity("FullStack.Data.Entities.InvoiceItem", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER");
-
-                    b.Property<int>("DataInvoiceId")
                         .HasColumnType("INTEGER");
 
                     b.Property<string>("Description")
@@ -54,27 +48,27 @@ namespace FullStack.Data.Migrations
                     b.Property<decimal>("Hours")
                         .HasColumnType("TEXT");
 
+                    b.Property<int>("InvoiceId")
+                        .HasColumnType("INTEGER");
+
                     b.Property<string>("ItemName")
                         .HasColumnType("TEXT");
 
                     b.Property<decimal>("ItemRate")
                         .HasColumnType("TEXT");
 
-                    b.Property<decimal>("Total")
-                        .HasColumnType("TEXT");
-
                     b.HasKey("Id");
 
-                    b.HasIndex("DataInvoiceId");
+                    b.HasIndex("InvoiceId");
 
                     b.ToTable("InvoiceItems");
                 });
 
-            modelBuilder.Entity("FullStack.Data.Entities.DataInvoiceItem", b =>
+            modelBuilder.Entity("FullStack.Data.Entities.InvoiceItem", b =>
                 {
-                    b.HasOne("FullStack.Data.Entities.DataInvoice", "DataInvoice")
+                    b.HasOne("FullStack.Data.Entities.Invoice", "Invoice")
                         .WithMany("InvoiceItems")
-                        .HasForeignKey("DataInvoiceId")
+                        .HasForeignKey("InvoiceId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });

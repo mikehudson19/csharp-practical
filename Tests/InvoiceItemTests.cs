@@ -12,13 +12,13 @@ namespace Tests
         public void CalculateItemTotalTest()
         {
             // Arrange
-            var invoiceItem = new InvoiceItem();
+            var invoiceItem = new InvoiceItemEntity();
             invoiceItem.ItemRate = 500;
             invoiceItem.Hours = 15;
             var expected = 7500;
 
             // Act
-            var actual = invoiceItem.CalculateItemTotal();
+            var actual = invoiceItem.Total;
 
             // Assert
             Assert.AreEqual(expected, actual);

@@ -15,20 +15,20 @@ namespace FullStack.Data
         User UpdateUser(User user);
         void DeleteUser(int id);
 
-        DataInvoice GetInvoice(int id);
-        List<DataInvoice> GetInvoices();
-        DataInvoice CreateInvoice(DataInvoice user);
-        DataInvoice UpdateInvoice(DataInvoice user);
+        Invoice GetInvoice(int id);
+        List<Invoice> GetInvoices(bool includeChildren);
+        Invoice CreateInvoice(Invoice user);
+        Invoice UpdateInvoice(Invoice user);
         void DeleteInvoice(int id);
 
-        DataInvoiceItem GetInvoiceItem(int id);
-        List<DataInvoiceItem> GetInvoiceItems();
-        DataInvoiceItem CreateInvoiceItem(DataInvoiceItem user);
-        DataInvoiceItem UpdateInvoiceItem(DataInvoiceItem user);
+        InvoiceItem GetInvoiceItem(int id);
+        List<InvoiceItem> GetInvoiceItems();
+        InvoiceItem CreateInvoiceItem(InvoiceItem user);
+        InvoiceItem UpdateInvoiceItem(InvoiceItem user);
         void DeleteInvoiceItem(int id);
     }
 
-    public class FullStackRepository: IFullStackRepository
+    public class FullStackRepository : IFullStackRepository
     {
         private FullStackDbContext _ctx;
         public FullStackRepository(FullStackDbContext ctx)
@@ -82,26 +82,29 @@ namespace FullStack.Data
         #endregion
 
         #region Invoice CRUD methods
-        public List<DataInvoice> GetInvoices()
+        public List<Invoice> GetInvoices(bool includeChildren)
         {
-            var invoicesWithItems = _ctx.Invoices.Include(i => i.InvoiceItems).ToList();
+            if (includeChildren)
+            {
+                return _ctx.Invoices.Include(i => i.InvoiceItems).ToList();
+            }
             return _ctx.Invoices.ToList();
         }
 
-        public DataInvoice GetInvoice(int id)
+        public Invoice GetInvoice(int id)
         {
             var invoiceWithItems = _ctx.Invoices.Include(i => i.InvoiceItems).ToList();
             return _ctx.Invoices.Find(id);
         }
 
-        public DataInvoice CreateInvoice(DataInvoice invoice)
+        public Invoice CreateInvoice(Invoice invoice)
         {
             _ctx.Invoices.Add(invoice);
             _ctx.SaveChanges();
             return invoice;
         }
 
-        public DataInvoice UpdateInvoice(DataInvoice invoice)
+        public Invoice UpdateInvoice(Invoice invoice)
         {
 
             var existing = _ctx.Invoices.SingleOrDefault(em => em.Id == invoice.Id);
@@ -123,19 +126,19 @@ namespace FullStack.Data
         #endregion
 
         #region InvoiceItem CRUD methods
-        public List<DataInvoiceItem> GetInvoiceItems()
+        public List<InvoiceItem> GetInvoiceItems()
         {
             //throw new NotImplementedException();
             return _ctx.InvoiceItems.ToList();
         }
 
-        public DataInvoiceItem GetInvoiceItem(int id)
+        public InvoiceItem GetInvoiceItem(int id)
         {
             //throw new NotImplementedException();
             return _ctx.InvoiceItems.Find(id);
         }
 
-        public DataInvoiceItem CreateInvoiceItem(DataInvoiceItem item)
+        public InvoiceItem CreateInvoiceItem(InvoiceItem item)
         {
             //throw new NotImplementedException();
 
@@ -144,7 +147,7 @@ namespace FullStack.Data
             return item;
         }
 
-        public DataInvoiceItem UpdateInvoiceItem(DataInvoiceItem item)
+        public InvoiceItem UpdateInvoiceItem(InvoiceItem item)
         {
             //throw new NotImplementedException();
 
